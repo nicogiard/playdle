@@ -44,7 +44,7 @@ public class Application extends Controller {
 		}
 		render(event);
 	}
-	
+
 	public static void date(Long id) {
 		// show the event identified by id in order to add dates
 		Event event = Event.findById(id);
@@ -54,7 +54,7 @@ public class Application extends Controller {
 
 	public static void addDate(@Required Long id, @Valid @Required Date date) {
 		// Default format for date is yyyy-MM-dd
-		
+
 		if (validation.hasErrors()) {
 			params.flash();
 			validation.keep();
@@ -95,6 +95,35 @@ public class Application extends Controller {
 		}
 		event.status = true;
 		event.save();
+		show(id);
+	}
+
+	public static void vote(@Required Long id, @Required String name, List<Long> eventDateId) {
+		if (validation.hasErrors()) {
+			params.flash();
+			validation.keep();
+		} else {
+			Event event = Event.findById(id);
+
+			// check if name already exists
+			if (event.listPeople.contains(new People(name))) {
+				validation.addError("nameAlreadyExist", "'%2$s' has already vote", name);
+				validation.keep();
+			} else {
+				People people = new People(name);
+				event.listPeople.add(people);
+				event.save();
+
+				if (eventDateId != null) {
+					for (EventDate eventDate : event.listEventDate) {
+						if (eventDateId.contains(eventDate.id)) {
+							eventDate.listPeople.add(new People(name));
+						}
+					}
+				}
+				event.save();
+			}
+		}
 		show(id);
 	}
 }

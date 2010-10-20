@@ -3,9 +3,64 @@
 
 #{if event}
 	<ul>
- 		<li><label>Date :</label> <span>${event.creationDate}</span></li>
+ 		<li><label>Date :</label> <span>${event.creationDate.format('dd/MM/yyyy')}</span></li>
  		<li><label>Title :</label> <span>${event.title}</span></li>
  		<li><label>Description :</label> <span>${event.description}</span></li>
  		<li><label>Owner :</label> <a href="mailto:${event.email}">${event.owner}</a></li>
+ 		#{if event.status}
+ 			#{form @Application.vote(event.id)}
+ 			#{ifErrors}
+			    <p class="error">
+			        Oops...
+			    </p>
+			    #{error 'nameAlreadyExist' /}
+			#{/ifErrors}
+ 			<table>
+ 				<thead>
+					<tr>
+						<td>&nbsp;</td>
+						#{list items:event.listEventDate, as:'eventDate'}
+						<td>${eventDate.date.format('dd/MM/yyyy')}</td>
+						#{/list}
+					</tr>
+				</thead>
+ 				<tbody>
+					#{list items:event.listPeople, as:'people'}
+					<tr>
+						<td>${people.name}</td>
+						#{list items:event.listEventDate, as:'eventDate'}
+							#{if eventDate.listPeople.contains(people)}
+							<td class="success">OK</td>
+							#{/if}
+							#{else}
+							<td class="error">KO</td>
+							#{/else}
+						#{/list}
+					</tr>
+					#{/list}
+					<tr>
+						<td>
+							<input name="name" type="text" class="text"/>
+							<span class="error">#{error 'name' /}</span>
+						</td>
+						#{list items:event.listEventDate, as:'eventDate'}
+						<td>
+							<input type="checkbox" name="eventDateId" value="${eventDate.id}"/>
+						</td>
+						#{/list}
+					</tr>
+				</tbody>
+				<tfoot>
+					<tr>
+					<td>Number of person :</td>
+					#{list items:event.listEventDate, as:'eventDate'}
+						<td>${eventDate.listPeople.size()}</td>
+					#{/list}
+				</tr>
+				</tfoot>
+		 	</table>
+	    	<input type="submit" value="Vote" />
+		 	#{/form}
+ 		#{/if}
  	</ul>
 #{/if}

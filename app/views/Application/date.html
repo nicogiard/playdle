@@ -3,7 +3,7 @@
 
 #{if event}
 	<ul>
- 		<li><label>Date :</label> <span>${event.creationDate}</span></li>
+ 		<li><label>Date :</label> <span>${event.creationDate.format('dd/MM/yyyy')}</span></li>
  		<li><label>Title :</label> <span>${event.title}</span></li>
  		<li><label>Description :</label> <span>${event.description}</span></li>
  		<li><label>Owner :</label> <a href="mailto:${event.email}">${event.owner}</a></li>
@@ -11,7 +11,7 @@
 	 		<li><label>Dates :</label>
 				<ul>
 					#{list items:event.listEventDate, as:'eventDate'}
-					<li><span>${eventDate.date}</span></li>
+					<li><span>${eventDate.date.format('dd/MM/yyyy')}</span></li>
 					#{/list}
 				</ul>	 
 	 		</li>
