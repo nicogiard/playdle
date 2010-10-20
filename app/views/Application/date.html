@@ -1,0 +1,33 @@
+#{extends 'main.html' /}
+#{set title:'Playdle | Choose Dates' /}
+
+#{if event}
+	<ul>
+ 		<li><label>Date :</label> <span>${event.creationDate}</span></li>
+ 		<li><label>Title :</label> <span>${event.title}</span></li>
+ 		<li><label>Description :</label> <span>${event.description}</span></li>
+ 		<li><label>Owner :</label> <a href="mailto:${event.email}">${event.owner}</a></li>
+ 		#{if event.listEventDate}
+	 		<li><label>Dates :</label>
+				<ul>
+					#{list items:event.listEventDate, as:'eventDate'}
+					<li><span>${eventDate.date}</span></li>
+					#{/list}
+				</ul>	 
+	 		</li>
+ 		#{/if}
+ 	</ul>
+ 	#{form @Application.addDate(event.id)}
+		#{ifErrors}
+		    <p class="error">Oops...</p>
+		#{/ifErrors}
+		<p>
+			<label>Date: </label><em>*</em><br/>
+			<input type="text" name="date" value="${flash['date']}"/>
+			<span class="error">#{error 'date' /}</span>
+		</p>
+		<p>
+		    <input type="submit" value="Add" />
+		</p>
+	#{/form}
+#{/if}
