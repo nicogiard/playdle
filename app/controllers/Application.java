@@ -79,4 +79,22 @@ public class Application extends Controller {
 		}
 		date(id);
 	}
+
+	public static void validate(Long id) {
+		Event event = Event.findById(id);
+		if (event.status) {
+			notFound();
+		}
+		render(event);
+	}
+
+	public static void openEvent(Long id) {
+		Event event = Event.findById(id);
+		if (event.status) {
+			notFound();
+		}
+		event.status = true;
+		event.save();
+		show(id);
+	}
 }

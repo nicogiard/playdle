@@ -1,5 +1,5 @@
 #{extends 'main.html' /}
-#{set title:'Playdle | Choose Dates' /}
+#{set title:'Playdle | Validate Event' /}
 
 #{if event}
 	<ul>
@@ -17,17 +17,9 @@
 	 		</li>
  		#{/if}
  	</ul>
- 	#{form @Application.addDate(event.id)}
-		#{ifErrors}
-		    <p class="error">Oops...</p>
-		#{/ifErrors}
-		<p>
-			<label>Date: </label><em>*</em><br/>
-			<input type="text" name="date" value="${flash['date']}"/>
-			<span class="error">#{error 'date' /}</span>
+ 	#{form @Application.openEvent(event.id)}
+ 		<p>
+		    <a href="@{Application.date(event.id)}">Add date</a> <input type="submit" value="Open Event" />
 		</p>
-		<p>
-		    <input type="submit" value="Add" /> <a href="@{Application.validate(event.id)}">Validate</a>
-		</p>
-	#{/form}
+ 	#{/form}
 #{/if}
