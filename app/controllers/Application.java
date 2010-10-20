@@ -26,4 +26,10 @@ public class Application extends Controller {
 		}
 		index();
 	}
+	
+	public static void events() {
+		// All events
+		List<Event> events = Event.findAll();
+		render(events);
+	}
 }
