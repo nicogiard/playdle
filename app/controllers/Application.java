@@ -32,4 +32,11 @@ public class Application extends Controller {
 		List<Event> events = Event.findAll();
 		render(events);
 	}
+
+	public static void show(Long id) {
+		// show the event identified by id 
+		Event event = Event.findById(id);
+		notFoundIfNull(event);
+		render(event);
+	}
 }

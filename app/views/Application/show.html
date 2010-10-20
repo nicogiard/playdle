@@ -1,0 +1,11 @@
+#{extends 'main.html' /}
+#{set title:'Playdle | Show Event' /}
+
+#{if event}
+	<ul>
+ 		<li><label>Date :</label> <span>${event.creationDate}</span></li>
+ 		<li><label>Title :</label> <span>${event.title}</span></li>
+ 		<li><label>Description :</label> <span>${event.description}</span></li>
+ 		<li><label>Owner :</label> <a href="mailto:${event.email}">${event.owner}</a></li>
+ 	</ul>
+#{/if}
