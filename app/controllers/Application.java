@@ -54,17 +54,22 @@ public class Application extends Controller {
 
 	public static void addDate(@Required Long id, @Valid @Required Date date) {
 		// Default format for date is yyyy-MM-dd
-
+		
 		if (validation.hasErrors()) {
+			Logger.debug("errors", validation.toString());
 			params.flash();
 			validation.keep();
 		} else {
 			Event event = Event.findById(id);
 			notFoundIfNull(event);
 
+			Logger.debug(event.toString());
+			
 			EventDate eventDate = new EventDate(date);
 			validation.valid(eventDate);
 			if (validation.hasErrors()) {
+				Logger.debug("errors", validation.toString());
+				
 				params.flash();
 				validation.keep();
 			}
@@ -73,11 +78,12 @@ public class Application extends Controller {
 				event.save();
 				flash.clear();
 				validation.clear();
+				Logger.debug("save", event.toString());
 			} else {
 				validation.addError("date", "the date already exist");
 			}
+			render(event);
 		}
-		date(id);
 	}
 
 	public static void validate(Long id) {

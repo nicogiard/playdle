@@ -1,5 +1,23 @@
 #{extends 'main.html' /}
 #{set title:'Playdle | Choose Dates' /}
+#{set 'moreStyles'}
+	<link rel="stylesheet" href="@{'/public/stylesheets/ui-lightness/jquery-ui-1.8.5.custom.css'}" type="text/css" media="screen, projection"/>
+#{/set}
+
+#{set 'moreScripts'}
+	<script type="text/javascript" src="@{'/public/javascripts/jquery-ui-1.8.5.custom.min.js'}"></script>
+	<script type="text/javascript">
+		$(function() {
+			$( "#datepicker" ).datepicker({
+				dateFormat: "yy-mm-dd",
+				onSelect: function(dateText, inst) {
+					var addDate = #{jsAction @Application.addDate(':id', ':date') /}
+					$('#eventDates').load(addDate({id:${event.id}, date:dateText}));
+				}
+			});	
+		});
+	</script>
+#{/set}
 
 #{if event}
 	<ul>
@@ -7,27 +25,22 @@
  		<li><label>Title :</label> <span>${event.title}</span></li>
  		<li><label>Description :</label> <span>${event.description}</span></li>
  		<li><label>Owner :</label> <a href="mailto:${event.email}">${event.owner}</a></li>
- 		#{if event.listEventDate}
-	 		<li><label>Dates :</label>
-				<ul>
-					#{list items:event.listEventDate, as:'eventDate'}
-					<li><span>${eventDate.date.format('dd/MM/yyyy')}</span></li>
-					#{/list}
-				</ul>	 
-	 		</li>
- 		#{/if}
  	</ul>
- 	#{form @Application.addDate(event.id)}
-		#{ifErrors}
-		    <p class="error">Oops...</p>
-		#{/ifErrors}
-		<p>
-			<label>Date: </label><em>*</em><br/>
-			<input type="text" name="date" value="${flash['date']}"/>
-			<span class="error">#{error 'date' /}</span>
-		</p>
-		<p>
-		    <input type="submit" value="Add" /> <a href="@{Application.validate(event.id)}">Validate</a>
-		</p>
-	#{/form}
+	<p>
+		<label>Date: </label><em>*</em><br/>
+		<div id="datepicker"></div>
+	</p>
+	<p>
+		<label>Selected Dates: </label><br/>
+		<div id="eventDates">
+			<ul>
+			#{list items:event.listEventDate, as:'eventDate'}
+				<li>${eventDate.date}</li>
+			#{/list}
+			</ul>
+		</div>
+	</p>
+	<p>
+	    <a href="@{Application.validate(event.id)}">Validate</a>
+	</p>
 #{/if}

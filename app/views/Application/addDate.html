@@ -1,0 +1,17 @@
+#{ifErrors}
+<p class="error">
+    ${errors[0]}
+</p>
+#{/ifErrors}
+#{if flash.error}
+    <p class="error">
+        ${flash.error}
+    </p>
+#{/if}
+#{if event}
+<ul>
+#{list items:event.listEventDate, as:'eventDate'}
+	<li>${eventDate.date.format('dd/MM/yyyy')}</li>
+#{/list}
+</ul>
+#{/if}
