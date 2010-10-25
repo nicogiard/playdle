@@ -2,6 +2,7 @@
 #{set title:'Playdle | Choose Dates' /}
 
 #{if event}
+<div class="span-10">
 	<ul>
  		<li><label>Date :</label> <span>${event.creationDate.format('dd/MM/yyyy')}</span></li>
  		<li><label>Title :</label> <span>${event.title}</span></li>
@@ -17,6 +18,8 @@
 	 		</li>
  		#{/if}
  	</ul>
+</div>
+<div class="span-10">
  	#{form @Application.addDate(event.id)}
 		#{ifErrors}
 		    <p class="error">Oops...</p>
@@ -24,10 +27,11 @@
 		<p>
 			<label>Date: </label><em>*</em><br/>
 			<input type="text" name="date" value="${flash['date']}"/>
-			<span class="error">#{error 'date' /}</span>
+			#{ifErrors}<span class="error">#{error 'date' /}</span>#{/ifErrors}
 		</p>
 		<p>
 		    <input type="submit" value="Add" /> <a href="@{Application.validate(event.id)}">Validate</a>
 		</p>
 	#{/form}
+</div>
 #{/if}

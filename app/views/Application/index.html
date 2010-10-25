@@ -1,45 +1,49 @@
 #{extends 'main.html' /}
 #{set title:'Playdle | Home' /}
 
-<h4>Last created events :</h4>
-#{if events} 
-	<ul>
-	#{list items:events, as:'event'}
-			<li><a href="@{Application.show(event.id)}">${event.title}</a></li>
-	#{/list}
-	</ul>
-	<a href="@{Application.events}">All events</a>
-#{/if}
-#{else}
-	<span>no event</span>
-#{/else}
+<div class="span-10">
+	<h3>Last created events :</h3>
+	#{if events} 
+		<ul>
+		#{list items:events, as:'event'}
+				<li><a href="@{Application.show(event.id)}">${event.title}</a></li>
+		#{/list}
+		</ul>
+		<a href="@{Application.events}">All events</a>
+	#{/if}
+	#{else}
+		<span>no event</span>
+	#{/else}
+</div>
 
-<h4>New event :</h4>
-#{form @Application.create()}
-	#{ifErrors}
-	    <p class="error">Oops...</p>
-	#{/ifErrors}
-	<p>
-		<label>Title: </label><em>*</em><br/>
-		<input type="text" name="event.title" value="${flash['event.title']}"/>
-		<span class="error">#{error 'event.title' /}</span>
-	</p>
-	<p>
-		<label>Description: </label><em>*</em><br/>
-		<textarea name="event.description">${flash['event.description']}</textarea>
-		<span class="error">#{error 'event.description' /}</span>
-	</p>
-	<p>
-		<label>Your name: </label><br/>
-		<input type="text" name="event.owner" value="${flash['event.owner']}"/>
-		<span class="error">#{error 'event.owner' /}</span>
-	</p>
-	<p>
-		<label>Your email: </label><br/>
-		<input type="text" name="event.email" value="${flash['event.email']}"/>
-		<span class="error">#{error 'event.email' /}</span>
-	</p>
-	<p>
-	    <input type="submit" value="Create" />
-	</p>
-#{/form}
+<div class="span-11">
+	<h3>New event :</h3>
+	#{form @Application.create()}
+		#{ifErrors}
+		    <p class="error">Oops...</p>
+		#{/ifErrors}
+		<p>
+			<label>Title: </label><em>*</em><br/>
+			<input type="text" name="event.title" value="${flash['event.title']}"/>
+			#{ifErrors}<span class="error">#{error 'event.title' /}</span>#{/ifErrors}
+		</p>
+		<p>
+			<label>Description: </label><em>*</em><br/>
+			<textarea name="event.description">${flash['event.description']}</textarea>
+			#{ifErrors}<span class="error">#{error 'event.description' /}</span>#{/ifErrors}
+		</p>
+		<p>
+			<label>Your name: </label><em>*</em><br/>
+			<input type="text" name="event.owner" value="${flash['event.owner']}"/>
+			#{ifErrors}<span class="error">#{error 'event.owner' /}</span>#{/ifErrors}
+		</p>
+		<p>
+			<label>Your email: </label><em>*</em><br/>
+			<input type="text" name="event.email" value="${flash['event.email']}"/>
+			#{ifErrors}<span class="error">#{error 'event.email' /}</span>#{/ifErrors}
+		</p>
+		<p>
+		    <input type="submit" value="Create" />
+		</p>
+	#{/form}
+</div>
