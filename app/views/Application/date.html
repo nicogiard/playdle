@@ -20,12 +20,15 @@
 #{/set}
 
 #{if event}
+<div class="span-10">
 	<ul>
  		<li><label>Date :</label> <span>${event.creationDate.format('dd/MM/yyyy')}</span></li>
  		<li><label>Title :</label> <span>${event.title}</span></li>
  		<li><label>Description :</label> <span>${event.description}</span></li>
  		<li><label>Owner :</label> <a href="mailto:${event.email}">${event.owner}</a></li>
  	</ul>
+</div>
+<div class="span-10">
 	<p>
 		<label>Date: </label><em>*</em><br/>
 		<div id="datepicker"></div>
@@ -43,4 +46,5 @@
 	<p>
 	    <a href="@{Application.validate(event.id)}">Validate</a>
 	</p>
+</div>
 #{/if}

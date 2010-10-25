@@ -2,6 +2,7 @@
 #{set title:'Playdle | Show Event' /}
 
 #{if event}
+<div class="span-20">
 	<ul>
  		<li><label>Date :</label> <span>${event.creationDate.format('dd/MM/yyyy')}</span></li>
  		<li><label>Title :</label> <span>${event.title}</span></li>
@@ -41,7 +42,7 @@
 					<tr>
 						<td>
 							<input name="name" type="text" class="text"/>
-							<span class="error">#{error 'name' /}</span>
+							#{ifErrors}<span class="error">#{error 'name' /}</span>#{/ifErrors}
 						</td>
 						#{list items:event.listEventDate, as:'eventDate'}
 						<td>
@@ -63,4 +64,5 @@
 		 	#{/form}
  		#{/if}
  	</ul>
+</div>
 #{/if}

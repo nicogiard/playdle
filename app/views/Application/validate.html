@@ -2,6 +2,7 @@
 #{set title:'Playdle | Validate Event' /}
 
 #{if event}
+<div class="span-10">
 	<ul>
  		<li><label>Date :</label> <span>${event.creationDate.format('dd/MM/yyyy')}</span></li>
  		<li><label>Title :</label> <span>${event.title}</span></li>
@@ -22,4 +23,5 @@
 		    <a href="@{Application.date(event.id)}">Add date</a> <input type="submit" value="Open Event" />
 		</p>
  	#{/form}
+</div>
 #{/if}

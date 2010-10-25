@@ -1,14 +1,16 @@
 #{extends 'main.html' /}
 #{set title:'Playdle | All Events' /}
 
-<h4>All events :</h4>
-#{if events} 
-	<ul>
-	#{list items:events, as:'event'}
-			<li><a href="@{Application.show(event.id)}">${event.title}</a></li>
-	#{/list}
-	</ul>
-#{/if}
-#{else}
-	<span>no event</span>
-#{/else}
+<div class="span-10">
+	<h3>All events :</h3>
+	#{if events} 
+		<ul>
+		#{list items:events, as:'event'}
+				<li><a href="@{Application.show(event.id)}">${event.title}</a></li>
+		#{/list}
+		</ul>
+	#{/if}
+	#{else}
+		<span>no event</span>
+	#{/else}
+</div>
