@@ -2,12 +2,20 @@
 #{set title:'Playdle | All Events' /}
 
 <h4>All events :</h4>
-#{if events} 
-	<ul>
-	#{list items:events, as:'event'}
-			<li><a href="@{Application.show(event.id)}">${event.title}</a></li>
-	#{/list}
-	</ul>
+#{if events}
+	<section id="events"> 
+		<ul>
+		#{list items:events, as:'event'}
+				<li><a href="@{Application.show(event.id)}">${event.title}</a></li>
+		#{/list}
+		</ul>
+		<span class="current">Page ${current} of ${max}</span>
+	    <span class="pages">
+	        #{list pages, as:'p'}
+	            <a href="@{Application.events(p)}" class="page ${p == current ? 'selected': ''}">${p}</a>
+	        #{/list}
+	    </span>
+	</section>
 #{/if}
 #{else}
 	<span>no event</span>

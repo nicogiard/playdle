@@ -11,6 +11,8 @@ import models.*;
 
 public class Application extends Controller {
 
+	public static final int EVENT_PER_PAGE = 2;
+
 	public static void index() {
 		// Only 5 last events with status set to true
 		List<Event> events = Event.find("status = true").fetch(5);
@@ -29,10 +31,22 @@ public class Application extends Controller {
 		date(event.id);
 	}
 
-	public static void events() {
+	public static void events(int p) {
+		int current = p == 0 ? 1 : p;
+
 		// All events with status set to true
-		List<Event> events = Event.find("status = true").fetch();
-		render(events);
+		List<Event> events = Event.find("status = true").fetch(current, EVENT_PER_PAGE);
+
+		long count = Event.count("status = true");
+		
+		long max = count / EVENT_PER_PAGE + (count % EVENT_PER_PAGE > 0 ? 1 : 0);
+		
+		List<Integer> pages = new ArrayList<Integer>();
+		for (int i = 1; i <= max; i++) {
+			pages.add(i);
+		}
+		
+		render(current, max, pages, events);
 	}
 
 	public static void show(Long id) {
