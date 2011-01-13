@@ -1,0 +1,48 @@
+EventDate(d1):
+    date: 2011-10-01
+
+EventDate(d2):
+    date: 2011-10-02
+    
+EventDate(d3):
+    date: 2011-10-01
+
+EventDate(d4):
+    date: 2011-10-02
+    
+EventDate(d5):
+    date: 2011-10-01
+
+EventDate(d6):
+    date: 2011-10-02
+    
+Event(ev1):
+    title: ev1
+    description: Description for ev1
+    owner : nicogiard
+    email : nicogiard@gmail.com
+    status: true
+    listEventDate:
+        - d1
+        - d2
+        
+Event(ev2):
+    title: ev2
+    description: Description for ev2
+    owner : nicogiard
+    email : nicogiard@gmail.com
+    status: true
+    listEventDate:
+        - d3
+        - d4
+    
+Event(ev3):
+    title: ev3
+    description: Description for ev3
+    owner : nicogiard
+    email : nicogiard@gmail.com
+    status: true
+    listEventDate:
+        - d5
+        - d6
+    
