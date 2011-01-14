@@ -1,6 +1,16 @@
 #{extends 'main.html' /}
 #{set title:'Playdle | All Events' /}
 
+#{set 'moreScripts'}
+<script type="text/javascript" charset="utf-8">
+    $('a.page').live('click', function(e) {
+        e.preventDefault()
+        var href = $(this).attr('href')
+        $('#events').load(href + ' #events')
+    })
+</script>
+#{/set}
+
 <h4>All events :</h4>
 #{if events}
 	<section id="events"> 
